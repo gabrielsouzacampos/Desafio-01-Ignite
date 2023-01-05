@@ -43,7 +43,7 @@ app.get('/todos', checksExistsUserAccount, (request, response) => {
 
   const user = users.find(user => user.username === username);
 
-  return response.json(user.todo);
+  return response.json(user.todos);
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
