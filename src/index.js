@@ -70,11 +70,22 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   user.name = name;
 
   return response.status(201).json(user);
-
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { id } = request.query;
+  const { user } = request;
+  const todo = user.todos.find(todo => todo.id === id);
+
+  if(!todo)
+    return response.status(404).json({error: "Todo not found"});
+
+  if(todo.done)
+    return response.status(404).json({error: "Todo already done"});
+
+  todo.done = true;
+
+  return response.status(200).json(todo);
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
